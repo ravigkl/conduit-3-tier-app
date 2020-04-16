@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: conduit-fe-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: conduit-frontend
+  template:
+    metadata:
+      labels:
+        app: conduit-frontend
+    spec:
+      containers:
+        - image: localhost:5000/com.conduitapp/frontend
+          imagePullPolicy: Always
+          name: conduit-frontend
+          ports:
+            - containerPort: 80

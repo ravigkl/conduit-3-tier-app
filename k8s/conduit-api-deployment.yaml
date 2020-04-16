@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: conduit-api
+spec:
+  replicas: 2
+  minReadySeconds: 15
+  selector:
+    matchLabels:
+      app: conduit-api
+  template:
+    metadata:
+      labels:
+        app: conduit-api
+    spec:
+      containers:
+        - image: localhost:5000/com.conduitapp/api
+          imagePullPolicy: Always
+          name: conduit-api
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql-service:3306/conduit
+            - name: SPRING_DATASOURCE_USERNAME
+              value: conduit
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: password
+          ports:
+            - containerPort: 8080
